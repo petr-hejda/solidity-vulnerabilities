@@ -1,0 +1,22 @@
+{
+	"name": "solidity-vulnerabilities",
+	"version": "1.0.0",
+	"description": "Examples of known security vulnerabilities in Solidity code",
+	"scripts": {
+		"test": "npx truffle test"
+	},
+	"author": "Petr Hejda <mail@petrhejda.cz>",
+	"license": "MIT",
+	"homepage": "https://github.com/petr-hejda/solidity-vulnerabilities#readme",
+	"bugs": {
+		"url": "https://github.com/petr-hejda/solidity-vulnerabilities/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/petr-hejda/solidity-vulnerabilities.git"
+	},
+	"dependencies": {
+		"truffle": "^5.4.28",
+		"truffle-assertions": "^0.9.2"
+	}
+}
