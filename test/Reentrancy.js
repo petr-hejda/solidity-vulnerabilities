@@ -1,15 +1,17 @@
-const Reentrancy = artifacts.require("Reentrancy");
-const Reentrancy_Attacker = artifacts.require("Reentrancy_Attacker");
+const { expect } = require("chai");
 
-let vulnerable, attacker;
+describe("Reentrancy", () => {
+	let vulnerable, attacker;
 
-contract("Reentrancy", () => {
 	it("deploys the contracts - vulnerable with 10 ETH and attacker with 1 ETH", async () => {
-		vulnerable = await Reentrancy.deployed({
-			value: web3.utils.toWei("10", "ether")
+		const VulnerableFactory = await ethers.getContractFactory("Reentrancy");
+		const AttackerFactory = await ethers.getContractFactory("Reentrancy_Attacker");
+
+		vulnerable = await VulnerableFactory.deploy({
+			value: ethers.utils.parseEther("10")
 		});
-		attacker = await Reentrancy_Attacker.deployed(vulnerable.address, {
-			value: web3.utils.toWei("1", "ether")
+		attacker = await AttackerFactory.deploy(vulnerable.address, {
+			value: ethers.utils.parseEther("1")
 		});
 	});
 
@@ -22,7 +24,7 @@ contract("Reentrancy", () => {
 	});
 
 	it("checks that the attacker now has 11 ETH", async () => {
-		const balance = await web3.eth.getBalance(attacker.address);
-		assert.equal(balance, web3.utils.toWei("11", "ether"));
+		const balance = await ethers.provider.getBalance(attacker.address);
+		expect(balance).to.equal(ethers.utils.parseEther("11"));
 	});
 });

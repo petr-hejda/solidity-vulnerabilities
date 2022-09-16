@@ -1,28 +1,28 @@
-const truffleAssert = require('truffle-assertions');
+const { expect } = require("chai");
 
-const FailedCallDos_Attacker = artifacts.require("FailedCallDos_Attacker");
-const FailedCallDos = artifacts.require("FailedCallDos");
+describe("FailedCallDos", () => {
+	let attacker, vulnerable;
+	const winner = "0xDeaDbeefdEAdbeefdEadbEEFdeadbeEFdEaDbeeF";
 
-let attacker, vulnerable;
-const winner = "0xDeaDbeefdEAdbeefdEadbEEFdeadbeEFdEaDbeeF";
-
-contract("FailedCallDos", (accounts) => {
 	it("deploys the contracts", async () => {
-		attacker = await FailedCallDos_Attacker.deployed();
-		vulnerable = await FailedCallDos.deployed([
+		const AttackerFactory = await ethers.getContractFactory("FailedCallDos_Attacker");
+		const VulnerableFactory = await ethers.getContractFactory("FailedCallDos");
+
+		attacker = await AttackerFactory.deploy();
+		vulnerable = await VulnerableFactory.deploy([
 			attacker.address,
 			winner
 		]);
 	});
 
 	it("performs batch payout to winners including to the attacker", async () => {
-		await truffleAssert.fails(
+		await expect(
 			vulnerable.payout()
-		);
+		).to.be.reverted;
 	});
 
 	it("checks that an eligible winner did not get their payout", async () => {
-		const balance = await web3.eth.getBalance(winner);
-		assert.equal(balance, "0");
+		const balance = await ethers.provider.getBalance(winner);
+		expect(balance).to.equal(0);
 	});
 });

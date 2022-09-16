@@ -17,23 +17,23 @@ npm test
 Test result:
 
 ```
-  Contract: FailedCallDos
-    ✓ deploys the contracts
-    ✓ performs batch payout to winners including to the attacker (1013ms)
-    ✓ checks that an eligible winner did not get their payout (39ms)
+  FailedCallDos
+    ✔ deploys the contracts (904ms)
+    ✔ performs batch payout to winners including to the attacker
+    ✔ checks that an eligible winner did not get their payout
 
-  Contract: Reentrancy
-    ✓ deploys the contracts - vulnerable with 10 ETH and attacker with 1 ETH (42ms)
-    ✓ deposits 1 ETH from the attacker to the vulnerable contract (253ms)
-    ✓ performs the attack (964ms)
-    ✓ checks that the attacker now has 11 ETH
+  Reentrancy
+    ✔ deploys the contracts - vulnerable with 10 ETH and attacker with 1 ETH (56ms)
+    ✔ deposits 1 ETH from the attacker to the vulnerable contract
+    ✔ performs the attack (58ms)
+    ✔ checks that the attacker now has 11 ETH
 
-  Contract: UntrustedDelegatecall
-    ✓ deploys the contracts
-    ✓ checks the zero admin address (39ms)
-    ✓ performs the attack (187ms)
-    ✓ checks the updated admin address (70ms)
+  UntrustedDelegatecall
+    ✔ deploys the contracts (42ms)
+    ✔ checks the zero admin address
+    ✔ performs the attack
+    ✔ checks the updated admin address
 
 
-  11 passing (3s)
+  11 passing (1s)
 ```
